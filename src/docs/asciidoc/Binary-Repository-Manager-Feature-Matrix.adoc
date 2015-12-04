@@ -5,9 +5,9 @@ This is the reincarnation of the (now dead) Maven Repository Manager Feature Mat
 
 This page is collaboratly edited by the maintainers of Archiva, Artifactory and Sonatype Nexus, making it the most complete, upt to date and non-biased comparison of Binary Repository Managers.
 
-[frame="all", cols="3,5,5,5", options="header"]
+[frame="all", cols="3,5,5,5,5", options="header"]
 |===
-|Feature |Archiva |Artifactory | Nexus
+|Feature |Archiva |Artifactory |Nexus |Pulp
 
 |*Screenshots*
 |image:archiva0.png[Archiva0, width="100%", link="https://github.com/binary-repositories-comparison/binary-repositories-comparison.github.io/blob/master/images/archiva0.png?raw=true"] +
@@ -21,12 +21,13 @@ image:artifactory1.png[Artifactory1, width="100%", link="https://github.com/bina
 |image:nexus0.png[Nexus0, width="100%", link="https://github.com/binary-repositories-comparison/binary-repositories-comparison.github.io/blob/master/images/nexus0.png?raw=true"] +
  +
 image:nexus1.png[Nexus0, width="100%", link="https://github.com/binary-repositories-comparison/binary-repositories-comparison.github.io/blob/master/images/nexus1.png?raw=true"]
-
+|(none)
 
 |*Latest Version*
 |2.0.1
 |4.1.3
 |2.11.2
+|2.7.0
 
 |*Release History*
 |http://archiva.apache.org/docs/current/release-notes.html[Release History]
@@ -34,11 +35,13 @@ image:nexus1.png[Nexus0, width="100%", link="https://github.com/binary-repositor
  +
 http://sourceforge.net/project/showfiles.php?group_id=175347&package_id=201243[Early Releases History (SourceForge)]
 |http://links.sonatype.com/products/nexus/pro/release-notes[Release History]
+|https://github.com/pulp/pulp/releases[Release History]
 
 |*License History*
 |All versions: Apache License 2.0
 |Lesser GNU General Public License 3.0
 |Eclipse Public License Version 1.0
+|GNU General Public License 2.0
 
 |*Public Instances*
 a| - https://archiva-repository.apache.org/archiva/index.html?request_lang=en[Archiva Instance at Apache]
@@ -65,6 +68,8 @@ a|
   - http://osgi.sonatype.org/[Sonatype OSGi Central] +
   - http://oss.sonatype.org/[Sonatype OSS Hosting]
 
+ a| - TBD
+ 
    4+|*Deployment*
 
 
@@ -80,6 +85,9 @@ Complete script for installing a standalone Tomcat service on Unix.
    |&#10004; +
    Embedded Jetty. JSW launch scripts - runs as a service on windows and unix. Also Native Solaris Service Manager Scripts.
 
+   |&#10004; +
+   Vagrantfile. 
+
    |War
 
    |&#10004;
@@ -89,6 +97,9 @@ Complete script for installing a standalone Tomcat service on Unix.
 
    |&#10004; +
    no container configuration required to run the war.
+   
+   |&#10008; +
+   Irrelevant concept
 
 |OS packages
 
@@ -99,12 +110,17 @@ Complete script for installing a standalone Tomcat service on Unix.
 
 |*?*
 
+| - RPM +
+- Vagrant
+
 |Cloud-based SaaS
 
 |&#10008;
 
 |&#10004; +
 http://www.jfrog.com/home/v_artifactorycloud_overview[Artifactory Online] - private Artifactory instance in the cloud with full self service, pay-per-use model and always up-to-date with all the latest features
+
+|&#10008;
 
 |&#10008;
 
@@ -121,6 +137,8 @@ a| - Filesystem +
 
 |Filesystem
 
+|Filesystem
+
 |Metadata storage
 
 |Filesystem
@@ -128,6 +146,8 @@ a| - Filesystem +
 |Indexed and querible database
 
 |Filesystem
+
+|MongoDB + Filesystem
 
 4+|*Configuration*
 
@@ -143,11 +163,14 @@ Fully configurable via Ajax UI with extensive online help, or REST API
 |&#10004; +
 100% configuration with Ajax UI or REST API
 
+|&#10008;
+
 |Config Storage
 
 |XML
 |Database, with XML import/export
 |h2 embedded database, XML and other files
+|INI Files
 
 4+|*Extensibility/ +
 Orthogonality*
@@ -155,8 +178,8 @@ Orthogonality*
 
 |IOC
 |Spring
-|Spring
 |Google Guice
+|Python Plugins
 
 |REST API
 
@@ -169,6 +192,9 @@ Extensive coverage. Document-first design (not UI coupled, so changes in UI do n
 |&#10004; +
 Uses Restlet.org servlet. UI communicates with server via REST to ensure 100% api support
 
+|&#10004; +
+Comprehensive REST API, QPID Event based communication
+
 |Deploy plug-ins without recompilation
 
 |&#10004;
@@ -180,10 +206,13 @@ Plugin source files are redeployed on the fly during development and can be edit
 |&#10004; +
 Fully extensible across the core components, REST API and UI. See the book and this post for more info.
 
+|&#10004;
+
 4+|*Proxying and Cache*
 
 
 |Hosted Repositories
+|&#10004;
 |&#10004;
 |&#10004;
 |&#10004;
@@ -192,26 +221,31 @@ Fully extensible across the core components, REST API and UI. See the book and t
 |&#10004;
 |&#10004;
 |&#10004;
+|&#10008;
 
 |Aggregate Repositories into single logical repo
 |&#10004;
 |&#10004;
 |&#10004;
+|&#10008; / Repofunnel?
 
 |Nest and reuse Repository Groups
 |*?*
 |&#10004;
 |&#10004;
+|&#10008;
 
 |Groups can contain other groups
 |*?*
 |&#10004;
 |&#10004;
+|&#10008;
 
 |Inclusion/exclusion rules per remote proxy
 |&#10004;
 |&#10004;
 |&#10004;
+|&#10008;
 
 4+a|[cols="5,3,3,3", width="100%"]
 !==============================================
