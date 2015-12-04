@@ -1,0 +1,2529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<title>Binary Repository Manager Feature Matrix</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Binary Repository Manager Feature Matrix</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_formerly_known_as_maven_repository_manager_feature_matrix">(formerly known as Maven Repository Manager Feature Matrix)</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This is the reincarnation of the (now dead) Maven Repository Manager Feature Matrix (<a href="http://docs.codehaus.org/display/MAVENUSER/Maven+Repository+Manager+Feature+Matrix">http://docs.codehaus.org/display/MAVENUSER/Maven+Repository+Manager+Feature+Matrix</a>) It picks up exactly where the old doc left it.</p></div>
+<div class="paragraph"><p>This page is collaboratly edited by the maintainers of Archiva, Artifactory and Sonatype Nexus, making it the most complete, upt to date and non-biased comparison of Binary Repository Managers.</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="13%" />
+<col width="21%" />
+<col width="21%" />
+<col width="21%" />
+<col width="21%" />
+<thead>
+<tr>
+<th align="left" valign="top">Feature </th>
+<th align="left" valign="top">Archiva </th>
+<th align="left" valign="top">Artifactory </th>
+<th align="left" valign="top">Nexus </th>
+<th align="left" valign="top">Pulp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>Screenshots</strong></p></td>
+<td align="left" valign="top"><p class="table"><span class="image">
+<img src="archiva0.png" alt="Archiva0" />
+</span><br />
+<br />
+<span class="image">
+<img src="archiva1.png" alt="Archiva1" />
+</span></p></td>
+<td align="left" valign="top"><p class="table"><span class="image">
+<img src="artifactory0.png" alt="Artifactory0" />
+</span><br />
+<br />
+<span class="image">
+<img src="artifactory1.png" alt="Artifactory1" />
+</span></p></td>
+<td align="left" valign="top"><p class="table"><span class="image">
+<img src="nexus0.png" alt="Nexus0" />
+</span><br />
+<br />
+<span class="image">
+<img src="nexus1.png" alt="Nexus0" />
+</span></p></td>
+<td align="left" valign="top"><p class="table">(none)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>Latest Version</strong></p></td>
+<td align="left" valign="top"><p class="table">2.0.1</p></td>
+<td align="left" valign="top"><p class="table">4.1.3</p></td>
+<td align="left" valign="top"><p class="table">2.11.2</p></td>
+<td align="left" valign="top"><p class="table">2.7.0</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>Release History</strong></p></td>
+<td align="left" valign="top"><p class="table"><a href="http://archiva.apache.org/docs/current/release-notes.html">Release History</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="https://bintray.com/jfrog/artifactory/artifactory/view">New Releases History (Bintray)</a><br />
+<br />
+<a href="http://sourceforge.net/project/showfiles.php?group_id=175347&amp;package_id=201243">Early Releases History (SourceForge)</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="http://links.sonatype.com/products/nexus/pro/release-notes">Release History</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="https://github.com/pulp/pulp/releases">Release History</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>License History</strong></p></td>
+<td align="left" valign="top"><p class="table">All versions: Apache License 2.0</p></td>
+<td align="left" valign="top"><p class="table">Lesser GNU General Public License 3.0</p></td>
+<td align="left" valign="top"><p class="table">Eclipse Public License Version 1.0</p></td>
+<td align="left" valign="top"><p class="table">GNU General Public License 2.0</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>Public Instances</strong></p></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+<a href="https://archiva-repository.apache.org/archiva/index.html?request_lang=en">Archiva Instance at Apache</a>
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+<a href="https://oss.jfrog.org/webapp/home.html">oss.jfrog.org </a> (<a href="https://www.jfrog.com/confluence/pages/viewpage.action?pageId=26083425">free accounts for OSS projects</a>)<br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://repo.springsource.org/">SpringSource</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://repo.jenkins-ci.org/">Jenkins CI</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://repo.grails.org/">Grails</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://gradle.artifactoryonline.com/">Gradle</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://repository.cloudera.com/cloudera/webapp/home.html">Cloudera</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://jaspersoft.artifactoryonline.com/jaspersoft/">JasperSoft</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://repo.jfrog.org/artifactory/webapp/home.html">Repo@JFrog</a>
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+<a href="http://maven.alfresco.com/nexus">Alfresco</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://repository.apache.org/">Apache</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://maven.atlassian.com/">Atlassian</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://nexus.codehaus.org/">Codehaus</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://repository.exoplatform.org/">ExoPlatform</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://maven.glassfish.org/">Glassfish</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://nexus.openqa.org/index.html">Open QA</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://nexus.scala-tools.org/index.html">Scala-Tools</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://repository.sonatype.org/">Sonatype Forge</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://osgi.sonatype.org/">Sonatype OSGi Central</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://oss.sonatype.org/">Sonatype OSS Hosting</a>
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+TBD
+</p>
+</li>
+</ul></div></div></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Deployment</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Standalone</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+   Embedded Jetty. JSW launch scripts - runs as a service on windows and unix</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+   Bundled Tomcat - runs as a service on Windows and Unix. Complete script for installation as a service on unix, includes: user creation, permission settings and service config.
+Complete script for installing a standalone Tomcat service on Unix.</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+   Embedded Jetty. JSW launch scripts - runs as a service on windows and unix. Also Native Solaris Service Manager Scripts.</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+   Vagrantfile.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">War</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+   "Drop the War" - deploy into existing Tomcat installation with zero configuration.</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+   no container configuration required to run the war.</p></td>
+<td align="left" valign="top"><p class="table">&#10008;<br />
+   Irrelevant concept</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">OS packages</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">- RPM for installing on YUM-enabled OSes.<br />
+- Docker images for OSS and Pro versions. Special image preconfigured to use as Docker Registry.</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">- RPM<br />
+- Vagrant</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Cloud-based SaaS</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+<a href="http://www.jfrog.com/home/v_artifactorycloud_overview">Artifactory Online</a> - private Artifactory instance in the cloud with full self service, pay-per-use model and always up-to-date with all the latest features</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Artifacts and Metadata Storage</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Artifacts storage</p></td>
+<td align="left" valign="top"><p class="table">Filesystem</p></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+Filesystem<br />
+</p>
+</li>
+<li>
+<p>
+Database (not reccomeneded for large repositories),<br />
+</p>
+</li>
+<li>
+<p>
+Cached NFS,<br />
+</p>
+</li>
+<li>
+<p>
+<a href="https://www.jfrog.com/confluence/display/RTF/S3+Object+Storage">Cached S3 and compatible</a> storage (Enterprise)
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><p class="table">Filesystem</p></td>
+<td align="left" valign="top"><p class="table">Filesystem</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Metadata storage</p></td>
+<td align="left" valign="top"><p class="table">Filesystem</p></td>
+<td align="left" valign="top"><p class="table">Indexed and querible database</p></td>
+<td align="left" valign="top"><p class="table">Filesystem</p></td>
+<td align="left" valign="top"><p class="table">MongoDB + Filesystem</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Configuration</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UI configurable</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Partially</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Fully configurable via Ajax UI with extensive online help, or REST API</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+100% configuration with Ajax UI or REST API</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Config Storage</p></td>
+<td align="left" valign="top"><p class="table">XML</p></td>
+<td align="left" valign="top"><p class="table">Database, with XML import/export</p></td>
+<td align="left" valign="top"><p class="table">h2 embedded database, XML and other files</p></td>
+<td align="left" valign="top"><p class="table">INI Files</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Extensibility/<br />
+Orthogonality</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">IOC</p></td>
+<td align="left" valign="top"><p class="table">Spring</p></td>
+<td align="left" valign="top"><p class="table">Sprint</p></td>
+<td align="left" valign="top"><p class="table">Google Guice</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">REST API</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Partially (with 1.4-M1)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Extensive coverage. Document-first design (not UI coupled, so changes in UI do not break existing REST clients). Uses Jersey. Can be used via strongly-typed Java API. Supports WADL.</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Uses Restlet.org servlet. UI communicates with server via REST to ensure 100% api support</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Comprehensive REST API, QPID Event based communication</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Deploy plug-ins without recompilation</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Extensible with custom Groovy plugins - schedule tasks, deploy artifacts, change resolution rules and download content, tend to any storage events etc.
+Plugin source files are redeployed on the fly during development and can be edited and debugged in your favorite IDE.</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Fully extensible across the core components, REST API and UI. See the book and this post for more info.</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Proxying and Cache</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Hosted Repositories</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Proxy Repositories</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Aggregate Repositories into single logical repo</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008; / Repofunnel?</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Nest and reuse Repository Groups</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Groups can contain other groups</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Inclusion/exclusion rules per remote proxy</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><div><div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="29%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<tbody>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Checksum checking</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">fix bad checksums</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">block bad checksums</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ignore bad checksums</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">repair hosted checksums</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">calculate missing checksums</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">validate client-side checksums</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">on deploy</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+</tbody>
+</table>
+</div></div></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Maven Metadata.xml repair</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+  Not required. Artifactory&#8217;s Maven metadata.xml is server calculated and is inherently up-to-date.</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Auto-cleanup of repositories declared in POMs</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">On the fly conversion of M1 to M2</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+with custom mappings for ambiguous paths</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">On the fly conversion of M2 to M1</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Eager parallel download of related artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Can download jars in parallel as soon as poms are requested, and sources in parallel when jars are requested.</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Shared Remote Repository Definitions</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Share remote repository definitions and import preconfigured definitions for most common remote repositories, save the configuration hassle.</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Eclipse Update Site Proxying</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Eclipse OSGI / P2 Proxying</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">OBR (OSGI Bundle Repository)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Maven Site Hosting</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Built in Remote Repository Browsing (html)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Built in Remote Repository Browsing (s3)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Indexing/<br />
+Search</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Index Format</p></td>
+<td align="left" valign="top"><p class="table">Lucene</p></td>
+<td align="left" valign="top"><p class="table">Database metadata indexing</p></td>
+<td align="left" valign="top"><p class="table">Lucene</p></td>
+<td align="left" valign="top"><p class="table">MongoDB</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Global Search by any query</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004; <a href="https://www.jfrog.com/confluence/display/RTF/Artifactory+Query+Language">Artifactory Query Language</a></p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Identify unknown artifact via checksum</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">On the fly indexing</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Immediate and transactional</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Scheduled Indexing</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Not needed - indexes are always up-to-date</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Not needed in most cases, but manual reindex is available in case changes are made directly to storage external to the app)</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Search in selected repositories</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Search for non-Maven artifacts</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Indexes any file in any format</p></td>
+<td align="left" valign="top"><p class="table">&#10008;<br />
+Relies on maven-indexer which only indexes artifacts in Maven format</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Search for artifacts on Central index</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(1.4-M1)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Uses immediate search in JCenter (superset of Central)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Search for artifacts in Bintray JCenter</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Index Publishing for External Consumption</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Only version compliant with all IDEs</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Group Index Publishing</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(1.4-M2)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Download Index from Remote Repositories for Local searching and proxying to consumers</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(1.4-M1)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Known Indexes publishing compatible Index: Central, Apache, Java.Net, more here</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Incremental Index Downloads</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(1.4-M1)</p></td>
+<td align="left" valign="top"><p class="table">Remote repositories only</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Incremental Index Publishing</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(1.4-M1)</p></td>
+<td align="left" valign="top"><p class="table">Remote repositories only</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Class search</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Includes search for any jar resource, and showing the actual class found</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GAVC search</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">POM/XML search</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Includes XPath search of any XML metadata.
+No need to customize anything for XML indexing</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Ivy modules search</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Properties search</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Search custom properties. Attach props to both files and folders via the UI (Pro) or via REST (OSS). No need for custom RDF uploads. Search results are can be manipulated as a bundle</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Custom metadata may be attached via the UI, Rest or by uploading an RDF file as part of your build. The metadata is indexed and searchable for files in Maven layout. (Pro)</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Group Index Publishing</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(1.4-M2)</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Reports</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Report for Problem Artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">By default blocks bad poms in runtime instead of polluting your repository and reporting after the fact (policy is configurable via UI)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+RSS Feeds and UI viewer for bad checksums and artifacts with bad poms.
+Bad poms are allowed through by default because many times Maven can still use them. We don&#8217;t believe that simply inserting a repo manager should cause things to suddenly fail from Central. The repo man should for the most part be transparent by default</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Repository Statistics</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Per repository or as a comparison among multiple repositories</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+- Binaries Count<br />
+- Binaries Size<br />
+- Artifacts Size<br />
+- Optimization<br />
+- Items Count<br />
+- Artifacts Count</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Artifact Statistics</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+- Download count<br />
+- Last downloaded and by whom<br />
+- Deployed by<br />
+- Age</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+- Last Modified<br />
+- Deployed by<br />
+- Age</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">RSS Feeds for New Artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+SS feeds available both for new artifacts in the repository and for newly deployed/discovered versions of a specific artifact</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Feeds for:<br />
+- Newly Proxied Artifacts<br />
+- Newly Deployed Artifacts<br />
+- System Configuration Changes<br />
+- Checksum errors<br />
+- Authentication Events</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Artifact Watching</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Supports watching any repository path for add/remove/update and receiving email notifications (Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Audit Logs</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+currently viewable from text file only</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+etailed audit logs for all actions and their sources in access.log</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>User Interface</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UI Technology</p></td>
+<td align="left" valign="top"><p class="table">Ajax - Single Page Application - knockoutjs bootstrap</p></td>
+<td align="left" valign="top"><p class="table">Ajax - uses Apache Wicket</p></td>
+<td align="left" valign="top"><p class="table">ExtJs - Ajax</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Repository Browsing</p></td>
+<td align="left" valign="top"><p class="table">html and webdav</p></td>
+<td align="left" valign="top"><p class="table">Ajax tree view, simple HTML view and WebDAV</p></td>
+<td align="left" valign="top"><p class="table">Ext Tree View, html, REST:xml, REST:json</p></td>
+<td align="left" valign="top"><p class="table">html and webdav</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Viewing of Artifact Information</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+POM information, dependencies, dependency tree and used by; artifact (including pom, sources, javadocs, etc.) can also be downloaded from artifact info page</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+POM view, size, deployed by, age, last downloaded and by whom, times downloaded, dependency info, permissions, metadata and properties, virtual repositories association, actions, builds + build information</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Delete Artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Move Artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+ (via REST Api only)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Move artifacts between repositories + dry-run to check for warnings + auto metadata recalculation. Also available via REST in Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Copy Artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(1.4-M1) via REST api only</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Cheap-copy of artifacts between repositories + dry-run to check for warnings + auto metadata recalculation (no extra space used due to pointer-based storage).<br />
+Copying is often the best approach for exposing the same artifact under different secure locations. Also available via REST in Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Upload Artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+With our without pom (will generate one if needed)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+- With our without pom (will generate one if needed)<br />
+- Upload multiple artifacts in one go<br />
+- Edit the pom before deployment<br />
+- Deploy to arbitrary (non-maven) paths via the UI</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+With our without pom (will generate one if needed)
+Upload multiple artifacts (classifiers) at once</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Syntax Highlighting</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Syntax highlighting + copy to clipboard support for dozens of known file types directly form the repository (including zip/jar sources)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Jar Browsing</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Supports viewing the content of jar files, including show source for class files</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Via a plugin in Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Dynamic Resources</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Serve dynamic repository content based on textual filtering (Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Mount Repositories as WebDAV Shares</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong><br />
+depoyment thru webdav</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Artifact deployment, browsing, moving, copying and deleting over WebDAV mounts, using native file explorers</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Configure deployed plug-ins</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+proxy policies, artifact processors</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Extension points to UI, request processing, scheduling, storage events etc</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Plugins can contribute REST, UI and components</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UI Branding</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Upload or link your logo image + preview, add custom footer text</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Branding with Logo is available (Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Repository Support</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Maven 2</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Maven 1</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Ivy</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Only with Maven layout</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Maven and non-maven layouts</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Only with Maven layout</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Gradle</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Only with Maven layout</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Maven and non-maven layouts</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Only with Maven layout</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">NuGet</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(OSS) searching and custom metadata aren&#8217;t supported</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Yum</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(OSS)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">P2</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)<br />
+Reuses native remote repositories for effective caching and expiry management</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(OSS)<br />
+Uses a separate mirroring mechanism where underlying list of repositories isn&#8217;t under user control</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">npm</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(OSS) browsing, searching and custom metadata aren&#8217;t supported</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">RubyGems</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(OSS) browsing, searching and custom metadata aren&#8217;t supported</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Debian packages</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Python Eggs</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Docker</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Vagrant (Atlas)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">VCS as a Remote Repo</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)<br /></p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Git LFS implementation</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)<br />
+Allows storing artifacts in Artifactory and retrive them using Git client API<br /></p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Custom Layouts</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Supports any custom layout with the ability to "understand" per layout what is a module. Defaults layouts can be extended in Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10004; (since 3.1)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Repository Storage</p></td>
+<td align="left" valign="top"><p class="table">File System</p></td>
+<td align="left" valign="top"><p class="table">Database (configurable) or file system + full system import/export and automated backups</p></td>
+<td align="left" valign="top"><p class="table">File System - Uses Maven repo layout on disk meaning no import or export required to get access to your artifacts</p></td>
+<td align="left" valign="top"><p class="table">File System</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Repository Replication/Syncing</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+ * Supports repository or folder-level replication via rsync-like REST API, including support for syncing deletes and controlling overwrites. Supports scheduled or event-driven push mode and pull mode (in Pro).<br />
+ * Supports multi-site pull replication (collecting from multiple remotes) (in Pro) and multi-site push replication (event-driven or scheduled pushing of artifacts to multiple remotes) (in Enterprise)<br />
+ * Supports additional features if the remote repository proxies Artifactory – syncronization of properties, statistics, delete notifications, etc.</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Smart Proxy enables cache invalidation and pre-emptive fetching between Nexus instances (Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Store same binary only once</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Artifacts with the same hash are stored a single time, no matter in how many repositories it appears in</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Highly Available Active-Active cluster</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Pro)<br />
+Enterprise-level HA cluster support for zero-downtime deployments and unlimited scalability.</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Deploy Artifacts via UI</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Includes snapshots and ability to auto-generate POMs and tweak POMs in the UI before deployment</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+can auto-generate poms.Accepts multiple files in one operation to accept classified/attached artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Deploy Artifact Bundles (multiple artifacts in one go)</p></td>
+<td align="left" valign="top"><p class="table">in future plans</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Import local repositories</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Import repositories and separate RELEASE and SNAPSHOT artifacts</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Centrally controlled snapshot policy</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Can choose between unique, non-unique (to save space and artifacts clutter) or respect deployer&#8217;s settings</p></td>
+<td align="left" valign="top"><p class="table">&#10008;<br />
+Respect deployer&#8217;s settings (from the pom)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Artifacts Metadata</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Persistent metadata about artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(1.4-M1)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Download stats (when by whom), original deployer, age</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">User attached custom metadata</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+On both files or folders - no need to customize anything</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Searchable custom metadata</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Including unique moving, copying &amp; exporting of search results</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Strongly-typed user-defined Properties</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Tag files and folders with you user defined searchable properties via the UI.<br />
+Prop-sets defined through UI as single/multi select or open, with the ability to assign default values, and associated with selected repos (Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Custom metadata plugin</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Attach metadata as part of deployment</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Attach metadata during Maven deployment or via simple REST - uploading external documents not required</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Full RDF metadata support</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Schema-less properties</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Any property of any type can be added on-the-fly without any pre-configuration</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Proxy remote metadata</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Metadata for remote artifacts on another Artifactory is synced and proxied</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">User-defined metadata on non-maven layout artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Since Artifactory is not maven-layout centric, metadata can be attached and queried on artifact in any layout</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Security</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Framework</p></td>
+<td align="left" valign="top"><p class="table">Redback (database required)</p></td>
+<td align="left" valign="top"><p class="table"><a href="http://static.springframework.org/spring-security/site/index.html">Spring Security</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="http://incubator.apache.org/shiro/">Apache Shiro</a></p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Role Based</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Default Roles</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Supports auto-join roles for newly created users, including ones from external realms</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Users inherit default roles when they sign up</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Permissions per repository</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Permissions per subset of repository or individual artifact</p></td>
+<td align="left" valign="top"><p class="table">in future plans</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Administrators per subset of repository</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Allow external security</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+via <a href="http://static.springframework.org/spring-security/site/index.html">Spring Security</a></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+via Shiro realm</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Allow external authentication</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+via Spring security or via pluggable realms written in Groovy</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+via Shiro</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Built-in enterprise user management features</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+via intuitive Ajax console</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+via Shiro + ExtJs user console. Full role based with the ability to specify permissions based on the path of the artifact (group/artifact/version) using regex if desired</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Support Prevention of Redeploy</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Control over who can populate caches</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Fully featured procurement support included in the pro version. This allows absolute control over the artifacts allowed through based on the artifact and user</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Support Protection of Sources /<br />
+javadoc etc</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Using Ant-like simple to understand patterns + OOTB templates for common include/excludes. Supports inclusion and exclusion so no need to used negative patterns for protecting sources etc</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Using the regex to control the paths, it is possible to secure separately any artifacts you want. Comes configured with targets to specify sources, which would allow you for example to have jars be downloaded anonymously but not the sources, even though they are sitting in the same repository</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Out of the box LDAP support</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong><br />
+partially for authz</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Configurable via the web UI</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Including role mappings, Active Directory support and more</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Able to use LDAP groups (authorization from ldap)</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Including highly optimized caching and comprehensive UI integration in Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+(Open Sourced in 1.5+)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Supports multiple realms in order (ie LDAP then fallback to internal)</p></td>
+<td align="left" valign="top"><p class="table"><strong>?</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+With control of whether to fallback to internal users or not.<br />
+Including Kerberos and native NTLM in Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+ordered control of cascading though configured realms&#8201;&#8212;&#8201;as many as you have installed</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Atlassian Crowd integration</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Delegate authentication requests to your Crowd server, get transparent SSO in a Crowd-enabled SSO environment, sync and manage permissions for Crowd groups in Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Security integration with Atlassian Crowd provided by Pro plugin</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">SAML integration</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+SSO with any SAML IdP (Identity Provider). Artifactory can act as a SAML Service Provider</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Secured settings.xml passwords</p></td>
+<td align="left" valign="top"><p class="table">&#10008;<br />
+functionality already available in Maven 2.1.0</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Centrally-controlled encrypted password policy so admins do not have to rely on clients security policy. Auto-generated encrypted passwords can be used in your settings.xml or with non Maven REST clients, such as Ivy, Gradle etc.<br />
+Overcomes Maven drawbacks (including Maven 2.1+) - Maven decrypts the password to clear-text on the client, and keeps a clear-text master password on the filesystem</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Via the <a href="http://blog.sonatype.com/2012/08/securing-repository-credentials-with-nexus-pro-user-tokens">User Token</a> feature. The token is a random api key and is not reversible to your corporate password, even by Nexus administrators. This was co-developed with a stock market that needed higher security than was is available elsewhere</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Configuration files protection</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Full encryption of passwords in configuration files</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Client features</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Client settings generation (settings.xml etc.)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Out of the box generation of downloadable from the UI Maven&#8217;s settings.xml, Ivy&#8217;s settings.xml and Gradle&#8217;s initial build script</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+with template management</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Client settings provisioning</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+"Set Me Up" screens with detailed instructions, copy-paste configuration snippets and downloadble configuration files for any repository type.</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Maven settings can be templatized and provisioned using Nexus Maven plugin (Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Dedicated client plugins</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+All client plugins allow generation of build BOM on any CI server (inc. cloud-based and non-pluggable ones) or without using a CI server. Existing plugins:<br />
+<br />
+- Artifactory Gradle Plugin (with custom DSL)<br />
+- Artifactory Maven Plugin<br />
+- Artifactory MsBuild Plugin (works with and without NuGet dependency management)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Nexus Maven Plugin</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Dedicated CLI clients</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+<a href="https://github.com/JFrogDev/artifactory-cli-go">Artifactory CLI client</a></p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>CI Integration</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Multiple CI servers support</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Supports Jenkins/Hudson, TeamCity and Bamboo with full UI integration and any other CI server (inc. cloud-based and non-pluggable ones) by using Maven/Gradle plugins.<br />
+Supports Microsoft Team Foundation Server (TFS) for working with .NET builds with and without NuGet</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Trace build environment</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Captures all build environment vars and system properties + CI-server specific vars (build, parent build, agent details etc.)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Trace published build artifacts and dependencies</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Captures all published artifacts and effective build dependencies (after final version resolution) from all scopes (including plug-ins) + visual view of per-module artifacts &amp; dependencies in Pro</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Bi-directional links from/to CI sevrer</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Can link from any build to its captured build info in Artifactory and from any artifact to the builds it is associated with in the CI server</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CI-Build Promotion</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Can promote CI builds to target repositories with selective scopes (e.g. promote all artifacts and all compile-time dependencies). Also via REST (Pro)</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Optimized Deployment</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Deploys all artifacts in one go only at the end of a successful build (Maven deploys partial modules for a broken multi-module build)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Custom deploy plugin works with Staging to stage locally and deploy/promote at the end of the build</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Database</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Supported DBMS</p></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+Apache Derby (default)<br />
+</p>
+</li>
+<li>
+<p>
+MySQL<br />
+</p>
+</li>
+<li>
+<p>
+PostgreSQL
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+Bundled with Apache Derby<br />
+</p>
+</li>
+<li>
+<p>
+MySQL<br />
+</p>
+</li>
+<li>
+<p>
+PostgreSQL<br />
+</p>
+</li>
+<li>
+<p>
+Oracle<br />
+</p>
+</li>
+<li>
+<p>
+MS SQL Server
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><p class="table">Bundled with H2 and non-replaceable</p></td>
+<td align="left" valign="top"><p class="table">MongoDB</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Database available for querying</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+configurable by datasources. Lucene index and REST api provided for searching</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Can be queried, but can also use REST API</p></td>
+<td align="left" valign="top"><p class="table">n/a - Lucene index and REST api provided for searching</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Can run without database</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Use by default an embedded Derby DB</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Can use file-system storage. Database usage is recommended for fully transactional behavior of metadata not extractable from the artifact file itself</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Uses H2 for metadata, not for artifacts</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>Documentation</strong></p></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+available docs: <a href="http://archiva.apache.org/">site</a>, <a href="http://cwiki.apache.org/confluence/display/ARCHIVA/">wiki</a><br />
+</p>
+</li>
+<li>
+<p>
+live instances: <a href="http://vmbuild.apache.org/vmbuild/">vmbuild</a>, <a href="http://maven.atlassian.com/">Atlassian</a>, <a href="http://archiva.exist.com/">Exist</a> (includes searchable Central repository)
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+available doc: <a href="http://www.jfrog.com/">site</a>, <a href="http://www.jfrog.com/confluence/pages/viewpage.action?pageId=25067914">wiki</a>, <a href="http://www.jfrog.com/confluence/display/RTF/Artifactory+User+Guide">User Guide</a><br />
+Live browsable and searchable <a href="http://repo.jfrog.org/artifactory/webapp/home.html">demo</a>
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+available docs: <a href="http://nexus.sonatype.org/">site</a>, <a href="http://www.sonatype.com/book/reference/repository-manager.html">Online Book</a> and <a href="http://www.sonatype.com/book/pdf/maven-definitive-guide.pdf">Printed Book</a><br />
+</p>
+</li>
+<li>
+<p>
+live <a href="http://repository.sonatype.org/">instance</a> that includes searchable Central repository<br />
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.sonatype.com/nexus/compare-repos">feature matrix</a>
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+<a href="http://www.pulpproject.org/docs">docs</a><br />
+</p>
+</li>
+<li>
+<p>
+<a href="https://fedorahosted.org/pulp/">wiki</a>
+</p>
+</li>
+</ul></div></div></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Repository Purge</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Snapshot Purge</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+configurable by: retention count, # of days old and if released snapshots are to be deleted</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+configurable by retention count</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+configurable by: retention count, # of days old and if released snapshots are to be deleted</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Unused Proxy artifact purge</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Can evict unused artifacts from the proxy cache to conserve disk space</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Can evict unused artifacts from the proxy cache to conserve disk space</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Bulk Removal of Old Module Versions</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+Select multiple artifacts across directories, by version and clean them all up in one go, or select any section of the repository tree to delete</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+You can select any section of the repository tree to delete, just like you would do on a file system</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>Web Services</strong></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+XMLRPC support in 1.2<br />
+&#10004;<br />
+(REST in 1.4-M1)</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+<a href="http://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API">REST API</a></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+- full support: The Ajax communicates with the server via REST so all operations are available for Web service integration</p></td>
+<td align="left" valign="top"><p class="table">N/A</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>Plugins Available</strong></p></td>
+<td align="left" valign="top"><p class="table">Pluggable repository consumers (ex. indexing consumer, repository purge consumer)</p></td>
+<td align="left" valign="top"><div><div class="ulist"><ul>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Build+Integration">Build Integration</a> -  Use the <a href="http://wiki.hudson-ci.org/display/HUDSON/Artifactory+Plugin">Hudson Artifactory Plugin</a>, <a href="http://www.jfrog.com/confluence/display/RTF/TeamCity+Artifactory+Plug-in">TeamCity Plugin</a> or <a href="http://www.jfrog.com/confluence/display/RTF/Bamboo+Artifactory+Plug-in">Bamboo Plugin</a> to deploy builds to Artifactory from Hudson/TeamCity together with build-time information. View builds in Artifactory with information about the deployed artifacts and dependencies (all scopes) and runtime environment per build, and link back to the CI Server to obtain fully-reproducible builds (some functions only in Pro).
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Artifactory+High+Availability">High Availability</a> (Enterprise) - Full active-active cluster with live fail-over.
+</p>
+</li>
+<li>
+<p>
+<a href="https://www.jfrog.com/confluence/display/RTF/S3+Object+Storage">S3 and Compatible Object Storage</a> (Enterprise) - Binary filestore can reside on the cloud providing unlimited scalability, security and disaster recovery capabilities. The solution uses read and write-behind caches for brining the performance to a filesystem level.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/License+Control">License Control</a> (Pro) - Take full control over licenses used by third-party dependencies as part of your builds and/or any file. Receive immediate notifications about any libraries that violate your organization&#8217;s license policy, so you can deal with licensing issues early on during development.
+</p>
+</li>
+<li>
+<p>
+The information about licenses may be harvested from pom and ivy descriptors or from <a href="http://www.jfrog.com/confluence/display/RTF/Black+Duck+Code+Center+Integration">Black Duck Code Center</a>.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Repository+Replication">Replication</a> (Pro) - Eagerly synchronize you repository content and metadata<br />
+</p>
+</li>
+<li>
+<p>
+<a href="https://www.jfrog.com/confluence/display/RTF/Repository+Replication">Multi-push replication</a> (Enterprise) - simultaneously push-replicate from one source repository to multiple target repositories in Enterprise installations
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/home/v_artifactorypro_features#search">Smart Searches and Promotion</a> (Pro) to aggregate multiple search results and operate them in one go.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/home/v_artifactorypro_features#properties">Properties</a> (Pro) - Define custom searchable property sets and apply them to artifacts and folders.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/P2+Repositories">P2</a> (Pro) - Proxy and host all your Eclipse® plugins via an Artifactory P2 repository, allowing users to have a single-access-point for all Eclipse® updates.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/YUM+Repositories">Yum</a> (Pro) - Host and proxy RPMs directly in Artifactory, acting as fully-featured YUM repository with auto-updating repo metadata.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/NuGet+Repositories">Nuget</a> (Pro) - Host and proxy NuGet packages in Artifactory and pull libraries from Artifactory into your various Visual Studio .NET applications.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/RubyGems+Repository">Ruby Gems</a> (Pro) - Host and proxy Ruby Gems in Artifactory with full gem bundler and rake support
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Npm+Repositories">NPM</a> (Pro) - Host and proxy node.js npm packages in Artifactory with npm tools support
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/PyPI+Repositories">Python Eggs</a> (Pro) - Host and proxy Python Eggs in Artifactory with pypi support
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Debian+Repositories">Debian</a> (Pro) - Distribute deb files directly from your Artifactory server, acting as fully-featured Debian repository with auto-updating repo metadata.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Docker+Repositories">Docker</a> (Pro) - Host and proxy Docker images. Distribute and share your images among teams across your organization, whether on-site or at remote locations with docker tool support, including secure pull and search. Proxy remote Docker registries, including DockerHub for locality and network independence. Use virtual repositories to simplify pull process.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Vagrant+Repositories">Vagrant</a> (Pro) - Host your Vagrant images in Artifactory with Atlas protocol support.
+</p>
+</li>
+<li>
+<p>
+<a href="https://www.jfrog.com/confluence/display/RTF/Bower+Repositories">Bower</a> (Pro) - Provision Bower packages directly from Artifactory to the Bower command line tool. Enjoy reliable and consistent access to remote Bower packages, and automatic calculation of metadata for Bower packages stored in our local repositories. Access multiple Bower registries through a single URL.
+</p>
+</li>
+<li>
+<p>
+<a href="https://www.jfrog.com/confluence/display/RTF/VCS+Repositories">VCS Repositories</a> (Pro) - Proxy a plain version control system as remote repository in Artifactory.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Git+LFS+Repositories">Git LFS</a> (Pro) - Host your artifacts in a true artifact repository and work with them as they were commited in Git repos. <a href="https://git-lfs.github.com/">More info on Git LFS</a>.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API">Advanced REST</a> (Pro) - Bundles a set of power REST commands, such as: Build Promotion, repository replication, aggregated folder tree file-listing, move/copy, sophisticated range searches, etc.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Filtered+Resources">Filtered Resources</a> - Server dynamic textual resources based on item properties and request context
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/home/v_artifactorypro_features#layouts">Custom (Non-Maven) Layouts</a> (Pro) - Define the layout by which modules are identified for automatic version management, cleanup and cross-repository layout conversion
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/LDAP+Groups">LDAP Groups</a> (Pro) leverage your existing organizational LDAP structure for managing group-based permissions with super-fast caching and flexible mapping strategies.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/confluence/display/RTF/Atlassian+Crowd+Integration">Atlassian Crowd Integration</a> (Pro) - Delegate authentication requests to your Crowd server, get transparent SSO in a Crowd-enabled SSO environment, sync and manage permissions for Crowd groups.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/home/v_artifactorypro_features#watches">Watches</a> (Pro) - Watch any repository path and receive focused email notifications.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/home/v_artifactorypro_features#sso">Pluggable HTTP SSO</a> (Pro) - Reuse exiting SSO infrastructures, such as Apache mod_ntlm, mod_kerberos, etc.
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.jfrog.com/home/v_artifactorypro_features#webstart">Web Start/Jar Signing</a> (Pro) to sign jars upon request and deploy, host and serve dynamic modular Web Start applications.
+</p>
+</li>
+<li>
+<p>
+Pluggable security realms
+</p>
+</li>
+</ul></div></div></td>
+<td align="left" valign="top"><p class="table"><a href="http://books.sonatype.com/nexus-book/reference/community.html">Full list here</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="https://github.com/pulp">Full list here</a></p></td>
+</tr>
+<tr>
+<td colspan="5" align="left" valign="top"><p class="table"><strong>Commercial Support</strong></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Cost<br />
+<span class="small">Each CI server agent and build tool considered a "user"</span></p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+US$2,750 per server for unlimited users on unlimited hardware with <a href="https://www.jfrog.com/registration/quoteaddons.html">Artifactory Pro</a></p></td>
+<td align="left" valign="top"><p class="table">&#10004;<br />
+- US$1,200 for 10 users included with Nexus Pro<br />
+<br />
+- US$6,000 for 50 users included with Nexus Pro<br />
+<br />
+- US$10,200 for 100 users included with Nexus Pro<br />
+<br />
+All with unlimited servers.</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Trial period for commercial versions</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">30 days. Extensions available on request</p></td>
+<td align="left" valign="top"><p class="table">14 days automatically. Extensions available on request</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Support terms and SLA</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+<td align="left" valign="top"><p class="table">24/7 with 4 hours acknowledgement time</p></td>
+<td align="left" valign="top"><p class="table">24/7 available</p></td>
+<td align="left" valign="top"><p class="table">&#10008;</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2015-12-04 17:19:08 CET
+</div>
+</div>
+</body>
+</html>
