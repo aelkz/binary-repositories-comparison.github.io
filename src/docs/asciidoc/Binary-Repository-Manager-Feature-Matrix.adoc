@@ -3,7 +3,7 @@
 == (formerly known as Maven Repository Manager Feature Matrix)
 This is the reincarnation of the (now dead) Maven Repository Manager Feature Matrix (http://docs.codehaus.org/display/MAVENUSER/Maven+Repository+Manager+Feature+Matrix) It picks up exactly where the old doc left it.
 
-This page is collaboratly edited by the maintainers of Archiva, Artifactory and Sonatype Nexus, making it the most complete, upt to date and non-biased comparison of Binary Repository Managers.
+This page is collaboratly edited by the maintainers of Archiva, Artifactory, Sonatype Nexus, and Pulp, making it the most complete, upt to date and non-biased comparison of Binary Repository Managers.
 
 [frame="all", cols="3,5,5,5,5", options="header"]
 |===
@@ -68,7 +68,8 @@ a|
   - http://osgi.sonatype.org/[Sonatype OSGi Central] +
   - http://oss.sonatype.org/[Sonatype OSS Hosting]
 
- a| - TBD
+ a| - https://access.redhat.com/products/red-hat-update-infrastructure/[RHUI] +
+  - Red Hat Docker Registry
  
    5+|*Deployment*
 
@@ -111,7 +112,8 @@ Complete script for installing a standalone Tomcat service on Unix.
 |*?*
 
 | - RPM +
-- Vagrant
+- Vagrant +
+- Docker
 
 |Cloud-based SaaS
 
@@ -170,7 +172,7 @@ Fully configurable via Ajax UI with extensive online help, or REST API
 |XML
 |Database, with XML import/export
 |h2 embedded database, XML and other files
-|INI Files
+|INI Files, MongoDB
 
 5+|*Extensibility/ +
 Orthogonality*
@@ -194,7 +196,7 @@ Extensive coverage. Document-first design (not UI coupled, so changes in UI do n
 Uses Restlet.org servlet. UI communicates with server via REST to ensure 100% api support
 
 |&#10004; +
-Comprehensive REST API, QPID Event based communication
+Comprehensive REST API, AMQP Message based communication
 
 |Deploy plug-ins without recompilation
 
@@ -222,7 +224,7 @@ Fully extensible across the core components, REST API and UI. See the book and t
 |&#10004;
 |&#10004;
 |&#10004;
-|&#10008;
+|&#10004; (In upcoming 2.8.0 release)
 
 |Aggregate Repositories into single logical repo
 |&#10004;
@@ -252,12 +254,12 @@ Fully extensible across the core components, REST API and UI. See the book and t
 !==============================================
 5+!*Checksum checking*
 !fix bad checksums!&#10004;!&#10004;!&#10004;!&#10008;
-!block bad checksums!&#10004;!&#10004;!&#10004;!&#10008;
-!ignore bad checksums!&#10004;!&#10004;!&#10004;!&#10008;
+!block bad checksums!&#10004;!&#10004;!&#10004;!&#10004;
+!ignore bad checksums!&#10004;!&#10004;!&#10004;!&#10004;
 !repair hosted checksums!&#10004;!&#10004;!&#10004;!&#10008;
 !calculate missing checksums!&#10004;!&#10004;!&#10004;!&#10008;
-!validate client-side checksums!*?*!&#10004;!&#10004;!&#10008;
-!on deploy!&#10008;!&#10004;!&#10008;!&#10008;
+!validate client-side checksums!*?*!&#10004;!&#10004;!&#10004;
+!on deploy!&#10008;!&#10004;!&#10008;!&#10004;
 !==============================================
 
 
@@ -296,7 +298,7 @@ with custom mappings for ambiguous paths
 |&#10004; +
 Can download jars in parallel as soon as poms are requested, and sources in parallel when jars are requested.
 |&#10008;
-|&#10008;
+|&#10004; (in upcoming 2.8.0 release)
 
 |Shared Remote Repository Definitions
 |&#10008;
@@ -509,7 +511,7 @@ Per repository or as a comparison among multiple repositories
 - Items Count +
 - Artifacts Count
 |&#10008;
-|N/A
+|- Artifacts Count
 
 |Artifact Statistics
 |*?*
@@ -542,7 +544,7 @@ Feeds for: +
 |&#10004; +
 Supports watching any repository path for add/remove/update and receiving email notifications (Pro)
 |&#10008;
-|N/A
+|Pulp can notify about changes to repositories
 
 |Audit Logs
 |&#10004; +
@@ -559,13 +561,13 @@ etailed audit logs for all actions and their sources in access.log
 |Ajax - Single Page Application - knockoutjs bootstrap
 |Ajax - uses Apache Wicket
 |ExtJs - Ajax
-|&#10008;
+|CLI
 
 |Repository Browsing
 |html and webdav
 |Ajax tree view, simple HTML view and WebDAV
 |Ext Tree View, html, REST:xml, REST:json
-|html and webdav
+|html
 
 |Viewing of Artifact Information
 |&#10004; +
@@ -573,7 +575,7 @@ POM information, dependencies, dependency tree and used by; artifact (including 
 |&#10004; +
 POM view, size, deployed by, age, last downloaded and by whom, times downloaded, dependency info, permissions, metadata and properties, virtual repositories association, actions, builds + build information
 |&#10004;
-|&#10008;
+|&#10004;
 
 |Delete Artifacts
 |&#10004;
@@ -737,13 +739,25 @@ Uses a separate mirroring mechanism where underlying list of repositories isn't 
 |&#10004; +
 (Pro)
 |&#10008;
-|&#10008;
+|&#10004; (Non-official community plugin)
 
-|Python Eggs
+|Python
 |&#10008;
 |&#10004; +
 (Pro)
 |&#10008;
+|&#10004;
+
+|OSTree
+|?
+|?
+|?
+|&#10004;
+
+|Puppet
+|?
+|?
+|?
 |&#10004;
 
 |Docker
@@ -780,7 +794,7 @@ Allows storing artifacts in Artifactory and retrive them using Git client API +
 |&#10004; +
 Supports any custom layout with the ability to "understand" per layout what is a module. Defaults layouts can be extended in Pro
 |&#10004; (since 3.1)
-|&#10004;
+|?
 
 |Repository Storage
 |File System
@@ -803,7 +817,7 @@ Smart Proxy enables cache invalidation and pre-emptive fetching between Nexus in
 |&#10004; +
 Artifacts with the same hash are stored a single time, no matter in how many repositories it appears in
 |&#10008;
-|N/A
+|&#10004;
 
 |Highly Available Active-Active cluster
 |&#10008;
@@ -811,7 +825,7 @@ Artifacts with the same hash are stored a single time, no matter in how many rep
 (Pro) +
 Enterprise-level HA cluster support for zero-downtime deployments and unlimited scalability.
 |&#10008;
-|N/A
+|&#10004;
 
 |Deploy Artifacts via UI
 |&#10004;
@@ -819,7 +833,7 @@ Enterprise-level HA cluster support for zero-downtime deployments and unlimited 
 Includes snapshots and ability to auto-generate POMs and tweak POMs in the UI before deployment
 |&#10004; +
 can auto-generate poms.Accepts multiple files in one operation to accept classified/attached artifacts
-|&#10008;
+|&#10004;
 
 |Deploy Artifact Bundles (multiple artifacts in one go)
 |in future plans
@@ -862,14 +876,14 @@ Download stats (when by whom), original deployer, age
 |&#10004; +
 On both files or folders - no need to customize anything
 |&#10004;
-|N/A
+|&#10004;
 
 |Searchable custom metadata
 |&#10008;
 |&#10004; +
 Including unique moving, copying & exporting of search results
 |&#10004;
-|N/A
+|&#10004;
 
 |Strongly-typed user-defined Properties
 |&#10008;
@@ -907,7 +921,7 @@ Metadata for remote artifacts on another Artifactory is synced and proxied
 |&#10004; +
 Since Artifactory is not maven-layout centric, metadata can be attached and queried on artifact in any layout
 |&#10008;
-|N/A
+|&#10004;
 
 5+|*Security*
 
@@ -915,7 +929,7 @@ Since Artifactory is not maven-layout centric, metadata can be attached and quer
 |Redback (database required)
 |http://static.springframework.org/spring-security/site/index.html[Spring Security]
 |http://incubator.apache.org/shiro/[Apache Shiro]
-|N/A
+|Custom
 
 |Role Based
 |&#10004;
@@ -1010,7 +1024,7 @@ Including role mappings, Active Directory support and more
 Including highly optimized caching and comprehensive UI integration in Pro
 |&#10004; +
 (Open Sourced in 1.5+)
-|&#10004;
+|&#10008;
 
 |Supports multiple realms in order (ie LDAP then fallback to internal)
 |*?*
@@ -1027,14 +1041,14 @@ ordered control of cascading though configured realms -- as many as you have ins
 Delegate authentication requests to your Crowd server, get transparent SSO in a Crowd-enabled SSO environment, sync and manage permissions for Crowd groups in Pro
 |&#10004; +
 Security integration with Atlassian Crowd provided by Pro plugin
-|&#10004;
+|&#10008;
 
 |SAML integration
 |&#10008;
 |&#10004; +
 SSO with any SAML IdP (Identity Provider). Artifactory can act as a SAML Service Provider
 |&#10008;
-|&#10004;
+|&#10008;
 
 |Secured settings.xml passwords
 |&#10008; +
@@ -1156,7 +1170,7 @@ configurable by datasources. Lucene index and REST api provided for searching
 |&#10004; +
 Can be queried, but can also use REST API
 |n/a - Lucene index and REST api provided for searching
-|N/A
+|&#10004;
 
 |Can run without database
 |&#10004; +
@@ -1175,8 +1189,7 @@ Live browsable and searchable http://repo.jfrog.org/artifactory/webapp/home.html
 a|-  available docs: http://nexus.sonatype.org/[site], http://www.sonatype.com/book/reference/repository-manager.html[Online Book] and http://www.sonatype.com/book/pdf/maven-definitive-guide.pdf[Printed Book] +
 - live http://repository.sonatype.org/[instance] that includes searchable Central repository +
 - http://www.sonatype.com/nexus/compare-repos[feature matrix]
-a|- http://www.pulpproject.org/docs[docs] +
-- https://fedorahosted.org/pulp/[wiki]
+a|- http://www.pulpproject.org/docs[docs]
 
 5+|*Repository Purge*
 
@@ -1203,7 +1216,7 @@ Can evict unused artifacts from the proxy cache to conserve disk space
 Select multiple artifacts across directories, by version and clean them all up in one go, or select any section of the repository tree to delete
 |&#10004; +
 You can select any section of the repository tree to delete, just like you would do on a file system
-|N/A
+|&#10004;
 
 |*Web Services*
 |&#10004; +
@@ -1214,7 +1227,7 @@ XMLRPC support in 1.2 +
 http://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API[REST API]
 |&#10004; +
 - full support: The Ajax communicates with the server via REST so all operations are available for Web service integration
-|N/A
+|REST API
 
 |*Plugins Available*
 |Pluggable repository consumers (ex. indexing consumer, repository purge consumer)
@@ -1266,7 +1279,8 @@ US$2,750 per server for unlimited users on unlimited hardware with https://www.j
 - US$10,200 for 100 users included with Nexus Pro +
  +
 All with unlimited servers.
-|&#10008;
+|- See Red Hat Satellite 6 +
+ - See Red Hat Update Infrastructure
 
 |Trial period for commercial versions
 |
@@ -1278,7 +1292,8 @@ All with unlimited servers.
 |&#10008;
 |24/7 with 4 hours acknowledgement time
 |24/7 available
-|&#10008;
+|- See Red Hat Satellite 6 +
+ - See Red Hat Update Infrastructure
 
 |&#10008;
 
