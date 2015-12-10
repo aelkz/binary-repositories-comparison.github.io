@@ -29,6 +29,18 @@ image:nexus1.png[Nexus0, width="100%", link="https://github.com/binary-repositor
 |2.11.2
 |2.7.0
 
+|*Included in Fedora*
+|?
+|?
+|?
+|24+
+
+|*Separately Packaged for Fedora/RHEL*
+|?
+|?
+|?
+|RHEL 6 & 7, Fedora 22, 23. Partial support for RHEL 5.
+
 |*Release History*
 |http://archiva.apache.org/docs/current/release-notes.html[Release History]
 |https://bintray.com/jfrog/artifactory/artifactory/view[New Releases History (Bintray)] +
