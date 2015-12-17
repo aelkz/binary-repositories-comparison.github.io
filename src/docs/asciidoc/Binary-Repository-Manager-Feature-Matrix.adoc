@@ -392,7 +392,7 @@ Immediate and transactional
 Not needed - indexes are always up-to-date
 |&#10004; +
 (Not needed in most cases, but manual reindex is available in case changes are made directly to storage external to the app)
-|N/A
+|&#10004;
 
 |Search in selected repositories
 |&#10004;
@@ -428,14 +428,14 @@ Uses immediate search in JCenter (superset of Central)
 |&#10004;
 |&#10004; +
 Only version compliant with all IDEs
-|N/A
+|&#10004;
 
 |Group Index Publishing
 |&#10004; +
 (1.4-M2)
 |&#10004;
 |&#10004;
-|N/A
+|&#10008;
 
 |Download Index from Remote Repositories for Local searching and proxying to consumers
 |&#10004; +
@@ -492,14 +492,7 @@ No need to customize anything for XML indexing
 Search custom properties. Attach props to both files and folders via the UI (Pro) or via REST (OSS). No need for custom RDF uploads. Search results are can be manipulated as a bundle
 |&#10004; +
 Custom metadata may be attached via the UI, Rest or by uploading an RDF file as part of your build. The metadata is indexed and searchable for files in Maven layout. (Pro)
-|N/A
-
-|Group Index Publishing
-|&#10004; +
-(1.4-M2)
-|*?*
-|*?*
-|N/A
+|&#10004;
 
 5+|*Reports*
 
@@ -510,7 +503,7 @@ Custom metadata may be attached via the UI, Rest or by uploading an RDF file as 
 |&#10004; +
 RSS Feeds and UI viewer for bad checksums and artifacts with bad poms.
 Bad poms are allowed through by default because many times Maven can still use them. We don't believe that simply inserting a repo manager should cause things to suddenly fail from Central. The repo man should for the most part be transparent by default
-|N/A
+|&#10008;
 
 |Repository Statistics
 |&#10004; +
@@ -536,7 +529,7 @@ Per repository or as a comparison among multiple repositories
 - Last Modified +
 - Deployed by +
 - Age
-|N/A
+|&#10008;
 
 |RSS Feeds for New Artifacts
 |&#10004; +
@@ -549,7 +542,7 @@ Feeds for: +
 - System Configuration Changes +
 - Checksum errors +
 - Authentication Events
-|N/A
+|&#10008;
 
 |Artifact Watching
 |&#10008;
@@ -564,7 +557,13 @@ currently viewable from text file only
 |&#10004; +
 etailed audit logs for all actions and their sources in access.log
 |&#10004;
-|N/A
+|&#10008;
+
+|Applicability Reports (the ability to report on which clients need which software updates to be applied
+|?
+|?
+|?
+|&#10004;
 
 5+|*User Interface*
 
@@ -653,7 +652,7 @@ depoyment thru webdav
 |&#10004; +
 Artifact deployment, browsing, moving, copying and deleting over WebDAV mounts, using native file explorers
 |&#10008;
-|N/A
+|&#10008;
 
 |Configure deployed plug-ins
 |&#10004; +
@@ -851,7 +850,7 @@ can auto-generate poms.Accepts multiple files in one operation to accept classif
 |in future plans
 |&#10004;
 |&#10004;
-|N/A
+|&#10004;
 
 |Import local repositories
 |&#10004;
@@ -881,7 +880,7 @@ Respect deployer's settings (from the pom)
 |&#10004; +
 Download stats (when by whom), original deployer, age
 |&#10004;
-|N/A
+|&#10004;
 
 |User attached custom metadata
 |&#10004;
@@ -904,7 +903,7 @@ Tag files and folders with you user defined searchable properties via the UI. +
 Prop-sets defined through UI as single/multi select or open, with the ability to assign default values, and associated with selected repos (Pro)
 |&#10004; +
 Custom metadata plugin
-|N/A
+|&#10004;
 
 |Attach metadata as part of deployment
 |&#10008;
@@ -912,21 +911,21 @@ Custom metadata plugin
 Attach metadata during Maven deployment or via simple REST - uploading external documents not required
 |&#10004; +
 Full RDF metadata support
-|N/A
+|&#10008;
 
 |Schema-less properties
 |&#10008;
 |&#10004; +
 Any property of any type can be added on-the-fly without any pre-configuration
 |&#10008;
-|N/A
+|&#10004;
 
 |Proxy remote metadata
 |&#10008;
 |&#10004; +
 Metadata for remote artifacts on another Artifactory is synced and proxied
 |&#10008;
-|N/A
+|&#10008;
 
 |User-defined metadata on non-maven layout artifacts
 |&#10008;
@@ -1019,7 +1018,9 @@ javadoc etc
 Using Ant-like simple to understand patterns + OOTB templates for common include/excludes. Supports inclusion and exclusion so no need to used negative patterns for protecting sources etc
 |&#10004; +
 Using the regex to control the paths, it is possible to secure separately any artifacts you want. Comes configured with targets to specify sources, which would allow you for example to have jars be downloaded anonymously but not the sources, even though they are sitting in the same repository
-|N/A
+|&#10004; +
+Pulp has a very flexible permission system that makes it possible to restrict access to
+all of its API paths and reposistories at a very fine grained level.
 
 |Out of the box LDAP support
 |*?* +
@@ -1070,7 +1071,9 @@ Centrally-controlled encrypted password policy so admins do not have to rely on 
 Overcomes Maven drawbacks (including Maven 2.1+) - Maven decrypts the password to clear-text on the client, and keeps a clear-text master password on the filesystem
 |&#10004; +
 Via the http://blog.sonatype.com/2012/08/securing-repository-credentials-with-nexus-pro-user-tokens[User Token] feature. The token is a random api key and is not reversible to your corporate password, even by Nexus administrators. This was co-developed with a stock market that needed higher security than was is available elsewhere
-|N/A
+|&#10004; +
+Pulp doesn't use XML, but it also does not store passwords in configuration files. Passwords are
+stored as salted hashes in the database.
 
 |Configuration files protection
 |&#10008;
@@ -1107,7 +1110,8 @@ All client plugins allow generation of build BOM on any CI server (inc. cloud-ba
 - Artifactory MsBuild Plugin (works with and without NuGet dependency management)
 |&#10004; +
 Nexus Maven Plugin
-|N/A
+|&#10004; +
+Goferd
 
 |Dedicated CLI clients
 |&#10008;
@@ -1124,35 +1128,35 @@ https://github.com/JFrogDev/artifactory-cli-go[Artifactory CLI client]
 Supports Jenkins/Hudson, TeamCity and Bamboo with full UI integration and any other CI server (inc. cloud-based and non-pluggable ones) by using Maven/Gradle plugins. +
 Supports Microsoft Team Foundation Server (TFS) for working with .NET builds with and without NuGet
 |&#10008;
-|N/A
+|&#10008;
 
 |Trace build environment
 |&#10008;
 |&#10004; +
 Captures all build environment vars and system properties + CI-server specific vars (build, parent build, agent details etc.)
 |&#10008;
-|N/A
+|&#10008;
 
 |Trace published build artifacts and dependencies
 |&#10008;
 |&#10004; +
 Captures all published artifacts and effective build dependencies (after final version resolution) from all scopes (including plug-ins) + visual view of per-module artifacts & dependencies in Pro
 |&#10008;
-|N/A
+|&#10008;
 
 |Bi-directional links from/to CI sevrer
 |&#10008;
 |&#10004; +
 Can link from any build to its captured build info in Artifactory and from any artifact to the builds it is associated with in the CI server
 |&#10008;
-|N/A
+|&#10008;
 
 |CI-Build Promotion
 |&#10008;
 |&#10004; +
 Can promote CI builds to target repositories with selective scopes (e.g. promote all artifacts and all compile-time dependencies). Also via REST (Pro)
 |&#10008;
-|N/A
+|&#10008;
 
 |Optimized Deployment
 |&#10008;
@@ -1160,7 +1164,7 @@ Can promote CI builds to target repositories with selective scopes (e.g. promote
 Deploys all artifacts in one go only at the end of a successful build (Maven deploys partial modules for a broken multi-module build)
 |&#10004; +
 Custom deploy plugin works with Staging to stage locally and deploy/promote at the end of the build
-|N/A
+|&#10008;
 
 5+|*Database*
 
@@ -1212,7 +1216,7 @@ configurable by: retention count, # of days old and if released snapshots are to
 configurable by retention count
 |&#10004; +
 configurable by: retention count, # of days old and if released snapshots are to be deleted
-|N/A
+|&#10004;
 
 |Unused Proxy artifact purge
 |&#10008;
@@ -1220,7 +1224,7 @@ configurable by: retention count, # of days old and if released snapshots are to
 Can evict unused artifacts from the proxy cache to conserve disk space
 |&#10004; +
 Can evict unused artifacts from the proxy cache to conserve disk space
-|N/A
+|&#10004;
 
 |Bulk Removal of Old Module Versions
 |&#10008;
